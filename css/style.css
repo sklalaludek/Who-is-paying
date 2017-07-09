@@ -4,13 +4,22 @@ body {
     font-family: 'Oswald', sans-serif;
 }
 
+#add_applicant:hover {
+    background-color: #bada55;
+    cursor: pointer;
+}
+
+#show_results:hover {
+    background-color: darkred;
+}
+
 .hidden {
     display: none;
 }
 
 /* =================
     Applicant container
-=================
+==================
 */
 .applicant_container {
     position: fixed;
@@ -88,7 +97,7 @@ input:focus {
 
 /* =================
     Results container
-=================
+==================
 */
 .results_container {
     position: fixed;
