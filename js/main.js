@@ -1,17 +1,19 @@
-(function GetApp(){
+(function GetApp() {
     let applicants = [];
 
     function init() {
         addApplicants();
         getRandomUser();
+        runAgain();
+        startOver();
     };
 
-    function showList(){
+    function showList() {
         let parent = document.querySelector('.applicant_list_wrapper');
         let template = ' ';
 
         for (let i = 0; i < applicants.length; i++) {
-            template += '<span class="name-tag" data-id=" '+ i +' ">' + applicants[i] + '</span>';
+            template += `<span class="name-tag" data-id="${i}">${applicants[i]}</span>`;
         }
 
         parent.innerHTML = ' ';
@@ -35,24 +37,20 @@
             } else {
                 alert('WRONG!');
             }
-            console.log(applicants);
         };
 
-        addBtn.addEventListener('click', function(){
+        addBtn.addEventListener('click', () => {
             const input = document.getElementById('applicant_value');
             generateList(input);
         });
 
     };
 
-    function checkValid(value){
-        if (applicants.indexOf(value) < 0 && value != ' '){
-                return true;
-        }
-        return false;
+    function checkValid(value) {
+        return applicants.indexOf(value) < 0 && value != ' ' ? true : false;
     };
 
-    function toDelete(){
+    function toDelete() {
         let item = document.querySelectorAll('.name-tag');
 
         function removeIt(element){
@@ -61,30 +59,61 @@
             applicants.splice(attr, 1);
             // generate list again
             showList();
-            console.log(applicants);
         };
 
-        item.forEach(item => item.addEventListener('click', function(e){
-                removeIt(this);
-        }));
+        item.forEach(item => item.addEventListener('click', () => removeIt(this)) );
     };
 
-    function getRandomUser(){
+    function getRandomUser() {
         const resultBtn = document.getElementById('show_results');
 
-        function showLooser(){
+        function showLooser() {
             let resultsContainer = document.querySelector('.results_container');
-            let applicantsContainer = document.querySelector('.applicant_container'),
+            let applicantsContainer = document.querySelector('.applicant_container');
 
-            //  applicantsContainer.className += 'hidden';
-            //  resultsContainer.className = 'results_container';
+             applicantsContainer.className += ' hidden';
+             resultsContainer.className = 'results_container';
+
+             showRandomUser();
         };
 
-        resultBtn.addEventListener('click', function(e){
-            if (applicants.length > 1) {
+        resultBtn.addEventListener('click', () => {
+            if (applicants.length > 0) {
                 showLooser();
             }
+        });
+    };
 
+    function showRandomUser() {
+        const resultContainer = document.querySelector('.result');
+        let randomUser = applicants[Math.floor(Math.random() * applicants.length)];
+
+        /*to clear HTML*/
+        resultContainer.innerHTML = ' ';
+        let randomName = `<h3>${randomUser}</h3>`;
+
+        resultContainer.insertAdjacentHTML('afterbegin', randomName);
+    };
+
+    function runAgain() {
+        const runAgainBtn = document.querySelector('.run_again');
+
+        runAgainBtn.addEventListener('click', () => showRandomUser());
+    };
+
+    function startOver() {
+        const startAgainBtn = document.querySelector('.start_again');
+
+        startAgainBtn.addEventListener('click', () => {
+            let resultsContainer = document.querySelector('.results_container');
+            let applicantsContainer = document.querySelector('.applicant_container');
+            let applicantsWrapper = document.querySelector('.applicant_list_wrapper');
+
+            applicantsContainer.className = ' applicant_container';
+            resultsContainer.className = 'results_container hidden';
+            applicantsWrapper.innerHTML = ' ';
+
+            applicants = [];
         });
     };
 
