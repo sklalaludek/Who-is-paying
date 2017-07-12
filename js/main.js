@@ -6,7 +6,7 @@
         getRandomUser();
         runAgain();
         startOver();
-    };
+    }
 
     function showList() {
         let parent = document.querySelector('.applicant_list_wrapper');
@@ -19,7 +19,7 @@
         parent.innerHTML = ' ';
         parent.insertAdjacentHTML('afterbegin', template);
         toDelete();
-    };
+    }
 
     function addApplicants() {
         const addBtn = document.getElementById('add_applicant');
@@ -37,18 +37,18 @@
             } else {
                 alert('WRONG!');
             }
-        };
+        }
 
         addBtn.addEventListener('click', () => {
             const input = document.getElementById('applicant_value');
             generateList(input);
         });
 
-    };
+    }
 
     function checkValid(value) {
         return applicants.indexOf(value) < 0 && value != ' ' ? true : false;
-    };
+    }
 
     function toDelete() {
         let item = document.querySelectorAll('.name-tag');
@@ -59,10 +59,10 @@
             applicants.splice(attr, 1);
             // generate list again
             showList();
-        };
+        }
 
         item.forEach(item => item.addEventListener('click', () => removeIt(this)) );
-    };
+    }
 
     function getRandomUser() {
         const resultBtn = document.getElementById('show_results');
@@ -75,14 +75,14 @@
              resultsContainer.className = 'results_container';
 
              showRandomUser();
-        };
+        }
 
         resultBtn.addEventListener('click', () => {
             if (applicants.length > 0) {
                 showLooser();
             }
         });
-    };
+    }
 
     function showRandomUser() {
         const resultContainer = document.querySelector('.result');
@@ -93,13 +93,13 @@
         let randomName = `<h3>${randomUser}</h3>`;
 
         resultContainer.insertAdjacentHTML('afterbegin', randomName);
-    };
+    }
 
     function runAgain() {
         const runAgainBtn = document.querySelector('.run_again');
 
         runAgainBtn.addEventListener('click', () => showRandomUser());
-    };
+    }
 
     function startOver() {
         const startAgainBtn = document.querySelector('.start_again');
@@ -115,7 +115,7 @@
 
             applicants = [];
         });
-    };
+    }
 
     init();
 })();
